@@ -1,12 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Schema;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
+[RequireComponent(typeof(MeshRenderer))]
+[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Renderer))]
 public class Subdividing : MonoBehaviour
 {
     [SerializeField] private int _minCount = 2;
@@ -23,9 +21,9 @@ public class Subdividing : MonoBehaviour
 
     public void Divide()
     {
-        if (_divideChance >= UnityEngine.Random.value)
+        if (_divideChance >= Random.value)
         {
-            var resultCount = UnityEngine.Random.Range(_minCount, _maxCount + 1);
+            var resultCount = Random.Range(_minCount, _maxCount + 1);
             var objects = CreateObjects(resultCount);
             
             HideGameObject();
@@ -40,22 +38,20 @@ public class Subdividing : MonoBehaviour
         }
     }
 
-    private IEnumerator ExplosionEnd(List<Object> objects, Explosion explosion)
+    private IEnumerator ExplosionEnd(List<GameObject> objects, Explosion explosion)
     {
-        var wait = new WaitForSeconds(_explosionEnd);
-
-        yield return wait;
+        yield return new WaitForSeconds(_explosionEnd);
 
         MoveToCubesLayer(objects);
         Destroy(explosion.gameObject);
         Destroy(gameObject);
     }
 
-    private void  MoveToCubesLayer(List<Object> objects)
+    private void  MoveToCubesLayer(List<GameObject> objects)
     {
-        foreach (Object obj in objects)
+        foreach (GameObject obj in objects)
         {
-            obj.GameObject().layer = LayerMask.NameToLayer(Layers.Cubes.ToString());
+            obj.layer = LayerMask.NameToLayer(Layers.Cubes.ToString());
         }
     }
 
@@ -68,9 +64,9 @@ public class Subdividing : MonoBehaviour
         return explosion;
     }
 
-    private List<Object> CreateObjects(int count)
+    private List<GameObject> CreateObjects(int count)
     {
-        var result = new List<Object>();
+        var result = new List<GameObject>();
 
         while (count-- > 0)
         {
@@ -103,6 +99,6 @@ public class Subdividing : MonoBehaviour
         subdivided.Init(_divideChance / 2);
 
         var renderer = newObject.GetComponent<Renderer>();
-        renderer.material.color = UnityEngine.Random.ColorHSV();
+        renderer.material.color = Random.ColorHSV();
     }
 }
