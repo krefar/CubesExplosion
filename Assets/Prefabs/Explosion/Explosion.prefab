@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9167989289745575465}
   - component: {fileID: 6385010624001560242}
   - component: {fileID: 8414367935363727385}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &6385010624001560242
 Animator:
